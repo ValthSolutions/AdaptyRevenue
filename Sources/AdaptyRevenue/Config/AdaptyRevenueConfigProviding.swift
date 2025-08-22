@@ -6,12 +6,16 @@
 //
 
 import Foundation
+import Adapty
 
 public protocol AdaptyRevenueConfigProviding: Sendable {
     var adaptyApiKey: String { get }
-    var environment: String { get }
-    var levels: [String: [String]] { get }
-    var analyticsCallback: ((any PurchaseAnalyticsEventProtocol) -> Void)? { get }
-    var oneTimePurchasesCallback: (([String: any OneTimePurchaseProtocol]) -> Void)? { get }
+    var environment: Environment { get }
     var logCallback: ((String) -> Void)? { get }
+    var isObserverMode: Bool? { get }
+    var logLevel: AdaptyLog.Level { get }
+}
+
+public enum Environment: String, Sendable {
+    case production, development, staging
 }

@@ -14,12 +14,19 @@ public protocol AdaptyRevenueServiceProtocol: Sendable {
     func shutdown() async
 
     // Events (Global events like profile has changed)
-    var eventsPublisher: AnyPublisher<any PurchaseEventProtocol, Never> { get }
-    func eventsStream() -> AsyncStream<any PurchaseEventProtocol>
+    var eventsPublisher: AnyPublisher<any AdaptyServiceEvent, Never> { get }
+    func eventsStream() -> AsyncStream<any AdaptyServiceEvent>
 
     // Products
     func fetchAllProducts() async throws -> [any ProductProtocol]
     func fetchProducts(forPaywall id: String) async throws -> [any ProductProtocol]
+
+    // ID / Attributes
+
+    func setCustomerUserId(_ id: String?) async
+    func logout() async
+
+    func updateAttribution(_ data: [AnyHashable: Any], from source: String) async
 
     // Profile / Status
     @discardableResult
@@ -44,3 +51,4 @@ public protocol AdaptyRevenueServiceProtocol: Sendable {
     func purchase(productID: String) async throws -> any PurchaseResultProtocol
     func restorePurchases() async throws
 }
+

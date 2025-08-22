@@ -10,9 +10,8 @@ import Foundation
 import Combine
 
 public final class AdaptyRevenueService: AdaptyRevenueServiceProtocol, @unchecked Sendable {
-
-    private let eventsSubject = PassthroughSubject<any PurchaseEventProtocol, Never>()
-    public var eventsPublisher: AnyPublisher<any PurchaseEventProtocol, Never> {
+    private let eventsSubject = PassthroughSubject<any AdaptyServiceEvent, Never>()
+    public var eventsPublisher: AnyPublisher<any AdaptyServiceEvent, Never> {
         eventsSubject.eraseToAnyPublisher()
     }
     
@@ -28,7 +27,7 @@ public final class AdaptyRevenueService: AdaptyRevenueServiceProtocol, @unchecke
     }
 
     // Events
-    public func eventsStream() -> AsyncStream<any PurchaseEventProtocol> {
+    public func eventsStream() -> AsyncStream<any AdaptyServiceEvent> {
         fatalError("Not implemented")
     }
 
@@ -95,6 +94,18 @@ public final class AdaptyRevenueService: AdaptyRevenueServiceProtocol, @unchecke
     }
 
     public func restorePurchases() async throws {
+        fatalError("Not implemented")
+    }
+
+    public func setCustomerUserId(_ id: String?) async {
+        fatalError("Not implemented")
+    }
+
+    public func logout() async {
+        fatalError("Not implemented")
+    }
+
+    public func updateAttribution(_ data: [AnyHashable : Any], from source: String) async {
         fatalError("Not implemented")
     }
 }
