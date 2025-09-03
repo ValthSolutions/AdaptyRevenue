@@ -12,3 +12,10 @@ public protocol PurchaseResultProtocol: Sendable {
     var transactionID: String? { get }
     var errorDescription: String? { get }
 }
+
+public struct PurchaseResultModel: PurchaseResultProtocol {
+    public let isSuccess: Bool
+    public let productID: String?
+    public let transactionID: String?
+    public let errorDescription: String?
+}

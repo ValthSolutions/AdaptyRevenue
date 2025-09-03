@@ -14,8 +14,8 @@ public protocol AdaptyRevenueServiceProtocol: Sendable {
     func shutdown() async
 
     // Events (Global events like profile has changed)
-    var eventsPublisher: AnyPublisher<any AdaptyServiceEvent, Never> { get }
-    func eventsStream() -> AsyncStream<any AdaptyServiceEvent>
+    var eventsPublisher: AnyPublisher<any IAdaptyServiceEvent, Never> { get }
+    func eventsStream() -> AsyncStream<any IAdaptyServiceEvent>
 
     // Products
     func fetchAllProducts() async throws -> [any ProductProtocol]
@@ -23,23 +23,20 @@ public protocol AdaptyRevenueServiceProtocol: Sendable {
 
     // ID / Attributes
 
-    func setCustomerUserId(_ id: String?) async
-    func logout() async
+    func setCustomerUserId(_ id: String) async throws
+    func logout() async throws
 
-    func updateAttribution(_ data: [AnyHashable: Any], from source: String) async
+    func updateAttribution(_ data: [AnyHashable: Any], from source: String) async throws
 
     // Profile / Status
-    @discardableResult
-    func refreshProfile() async throws -> any ProfileProtocol
-
-    func isSubscriber(level: String?) async -> Bool
-    func currentSubscription(level: String?) async -> (any SubscriptionProtocol)?
+    func isSubscriber(level: String) async -> Bool
+    func currentSubscription(level: String) async -> (any SubscriptionProtocol)?
 
     // Flags & Dates
-    func isInRetryPeriod(level: String?) async -> Bool
-    func isFamilyPlan(level: String?) async -> Bool
-    func lastPaymentDate(level: String?) async -> Date?
-    func nextRenewalDate(level: String?) async -> Date?
+    func isInRetryPeriod(level: String) async -> Bool
+    func isInGracePeriod(level: String) async -> Bool
+    func lastPaymentDate(level: String) async -> Date?
+    func nextRenewalDate(level: String) async -> Date?
 
     // Eligibility & History
     func isEligibleForTrial(productID: String) async -> Bool
