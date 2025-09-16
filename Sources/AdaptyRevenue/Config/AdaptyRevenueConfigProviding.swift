@@ -12,8 +12,10 @@ public protocol AdaptyRevenueConfigProviding: Sendable {
     var adaptyApiKey: String { get }
     var environment: Environment { get }
     var logCallback: ((String) -> Void)? { get }
-    var isObserverMode: Bool? { get }
+    var isObserverMode: Bool { get }
     var logLevel: AdaptyLog.Level { get }
+    var userId: String { get }
+    var paywallPlacements: [String] { get }
 }
 
 public enum Environment: String, Sendable {
